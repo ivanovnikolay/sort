@@ -1,11 +1,8 @@
-def sort(array):
-    N = len(array)
-    while True:
-        swapped = False
-        for i in range(N - 1):
-            if array[i] > array[i + 1]:
-                array[i], array[i + 1], swapped = array[i + 1], array[i], True
-        if not swapped:
-            break
-        N -= 1
-    return array
+def sort(a):
+    N, swapped = len(a), True
+    while swapped:
+        N, swapped = N - 1, False
+        for i in range(N):
+            if a[i] > a[i + 1]:
+                a[i], a[i + 1], swapped = a[i + 1], a[i], True
+    return a
