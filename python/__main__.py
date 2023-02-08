@@ -4,9 +4,9 @@ import resource
 import bubble, insertion, quick, merge, heap
 from timeit import timeit
 
-
-if len(sys.argv) < 1:
+if len(sys.argv) < 2:
     print('Enter the array size as the first command line argument')
+    sys.exit(1)
 
 N = int(sys.argv[1])
 print('Array size is %s' % N)
