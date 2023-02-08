@@ -39,6 +39,10 @@ public class App {
 
         time = TimeIt(() -> HeapSort(array.clone()));
         System.out.printf("Heap sort time: %.10f\n", time);
+
+        var runtime = Runtime.getRuntime();
+        var max_memory = runtime.totalMemory() - runtime.freeMemory();
+        System.out.printf("Max memory usage: %.1f Mb\n", max_memory / (1024.0*1024));
     }
 
 
