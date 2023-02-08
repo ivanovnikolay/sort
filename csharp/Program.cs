@@ -1,18 +1,37 @@
-﻿
-int[] array = new int []{0, 4, 3, 5, 2, 1};
-Console.WriteLine("Bubble sort: {0}", ArrayToStr(BubbleSort(array)));
+﻿using System.Diagnostics;
 
-array = new int []{0, 4, 3, 5, 2, 1};
-Console.WriteLine("Heap sort: {0}", ArrayToStr(HeapSort(array)));
 
-array = new int []{0, 4, 3, 5, 2, 1};
-Console.WriteLine("Insertion sort: {0}", ArrayToStr(InsertionSort(array)));
+var argv = Environment.GetCommandLineArgs();
+if (argv.Length < 2) {
+    Console.WriteLine("Enter the array size as the first command line argument");
+    Environment.Exit(1);
+}
 
-array = new int []{0, 4, 3, 5, 2, 1};
-Console.WriteLine("Merge sort: {0}", ArrayToStr(MergeSort(array)));
+var N = int.Parse(argv[1]);
+Console.WriteLine("Array size is {0}", N);
 
-array = new int []{0, 4, 3, 5, 2, 1};
-Console.WriteLine("Quick sort: {0}", ArrayToStr(QuickSort(array)));
+var random = new Random();
+var array = new int[N];
+for (var i = 0; i < array.Length; i++) {
+    array[i] = random.Next();
+}
+var time = TimeSpan.Zero;
+
+time = TimeIt(() => BubbleSort(array.ToArray()));
+Console.WriteLine("Bubble sort time: {0}", time);
+
+time = TimeIt(() => InsertionSort(array.ToArray()));
+Console.WriteLine("Insertion sort time: {0}", time);
+
+time = TimeIt(() => QuickSort(array.ToArray()));
+Console.WriteLine("Quick sort time: {0}", time);
+
+time = TimeIt(() => MergeSort(array.ToArray()));
+Console.WriteLine("Merge sort time: {0}", time);
+
+time = TimeIt(() => HeapSort(array.ToArray()));
+Console.WriteLine("Heap sort time: {0}", time);
+
 
 int[] BubbleSort(int[] arr) {
     var N = arr.Length;
@@ -37,12 +56,10 @@ int[] HeapSort(int[] arr) {
     if (arr.Length <= 1) {
         return arr;
     }
-    for (var i = arr.Length / 2 - 1; i >= 0; i--)
-    {
+    for (var i = arr.Length / 2 - 1; i >= 0; i--) {
         Heapify(arr, arr.Length, i);
     }
-    for (var i = arr.Length - 1; i >= 0; i--)
-    {
+    for (var i = arr.Length - 1; i >= 0; i--) {
         var temp = arr[0];
         arr[0] = arr[i];
         arr[i] = temp;
@@ -57,16 +74,13 @@ static void Heapify(int[] arr, int size, int index)
     var largest = index;
     var left = 2 * index + 1;
     var right = 2 * index + 2;
-    if (left < size && arr[left] > arr[largest])
-    {
+    if (left < size && arr[left] > arr[largest]) {
         largest = left;
     }
-    if (right < size && arr[right] > arr[largest])
-    {
+    if (right < size && arr[right] > arr[largest]) {
         largest = right;
     }
-    if (largest != index)
-    {
+    if (largest != index) {
         var temp = arr[index];
         arr[index] = arr[largest];
         arr[largest] = temp;
@@ -79,8 +93,7 @@ int[] InsertionSort(int[] arr) {
     for (int i = 1; i < arr.Length; i++) {
         var key = arr[i];
         var flag = false;
-        for (int j = i - 1; j >= 0 && !flag;)
-        {
+        for (int j = i - 1; j >= 0 && !flag;) {
             if (key < arr[j]) {
                 arr[j + 1] = arr[j];
                 j--;
@@ -159,19 +172,14 @@ int[] QuickSortArray(int[] arr, int leftIndex, int rightIndex) {
     var i = leftIndex;
     var j = rightIndex;
     var pivot = arr[leftIndex];
-    while (i <= j)
-    {
-        while (arr[i] < pivot)
-        {
+    while (i <= j) {
+        while (arr[i] < pivot) {
             i++;
         }
-        
-        while (arr[j] > pivot)
-        {
+        while (arr[j] > pivot) {
             j--;
         }
-        if (i <= j)
-        {
+        if (i <= j) {
             int temp = arr[i];
             arr[i] = arr[j];
             arr[j] = temp;
@@ -179,12 +187,37 @@ int[] QuickSortArray(int[] arr, int leftIndex, int rightIndex) {
             j--;
         }
     }
-    
     if (leftIndex < j)
         QuickSortArray(arr, leftIndex, j);
     if (i < rightIndex)
         QuickSortArray(arr, i, rightIndex);
     return arr;
+}
+
+
+TimeSpan TimeIt(Action func) {
+    var stopwatch = Stopwatch.StartNew();
+    func();
+    stopwatch.Stop();
+    return stopwatch.Elapsed;
+}
+
+
+void TestSorts() {
+    int[] array = new int []{0, 4, 3, 5, 2, 1};
+    Console.WriteLine("Bubble sort: {0}", ArrayToStr(BubbleSort(array.ToArray())));
+
+    array = new int []{0, 4, 3, 5, 2, 1};
+    Console.WriteLine("Heap sort: {0}", ArrayToStr(HeapSort(array.ToArray())));
+
+    array = new int []{0, 4, 3, 5, 2, 1};
+    Console.WriteLine("Insertion sort: {0}", ArrayToStr(InsertionSort(array.ToArray())));
+
+    array = new int []{0, 4, 3, 5, 2, 1};
+    Console.WriteLine("Merge sort: {0}", ArrayToStr(MergeSort(array.ToArray())));
+
+    array = new int []{0, 4, 3, 5, 2, 1};
+    Console.WriteLine("Quick sort: {0}", ArrayToStr(QuickSort(array.ToArray())));
 }
 
 
