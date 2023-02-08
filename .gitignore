@@ -2,3 +2,4 @@
 python/__pycache__
 csharp/bin
 csharp/obj
+.DS_Store
