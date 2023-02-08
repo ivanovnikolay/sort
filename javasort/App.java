@@ -17,28 +17,28 @@ public class App {
 
         var N = Integer.parseInt(args[0]);
         System.out.println("Array size is " + N);
-        
+
         var random = new Random();
         var array = new int[N];
         for (var i = 0; i < array.length; i++) {
             array[i] = random.nextInt();
         }
         double time = 0;
-        
+
         time = TimeIt(() -> BubbleSort(array.clone()));
-        System.out.println("Bubble sort time: " + time);
-        
+        System.out.printf("Bubble sort time: %.10f\n", time);
+
         time = TimeIt(() -> InsertionSort(array.clone()));
-        System.out.println("Insertion sort time: " + time);
-        
+        System.out.printf("Insertion sort time: %.10f\n", time);
+
         time = TimeIt(() -> QuickSort(array.clone()));
-        System.out.println("Quick sort time: " + time);
-        
+        System.out.printf("Quick sort time: %.10f\n", time);
+
         time = TimeIt(() -> MergeSort(array.clone()));
-        System.out.println("Merge sort time: " + time);
-        
+        System.out.printf("Merge sort time: %.10f\n", time);
+
         time = TimeIt(() -> HeapSort(array.clone()));
-        System.out.println("Heap sort time: " + time);
+        System.out.printf("Heap sort time: %.10f\n", time);
     }
 
 
