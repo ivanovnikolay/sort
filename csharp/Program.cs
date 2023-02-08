@@ -15,7 +15,7 @@ var array = new int[N];
 for (var i = 0; i < array.Length; i++) {
     array[i] = random.Next();
 }
-var time = TimeSpan.Zero;
+var time = 0.0;
 
 time = TimeIt(() => BubbleSort(array.ToArray()));
 Console.WriteLine("Bubble sort time: {0}", time);
@@ -69,7 +69,7 @@ int[] HeapSort(int[] arr) {
 }
 
 
-static void Heapify(int[] arr, int size, int index)
+void Heapify(int[] arr, int size, int index)
 {
     var largest = index;
     var left = 2 * index + 1;
@@ -168,6 +168,7 @@ int[] QuickSort(int[] arr) {
     return QuickSortArray(arr, 0, arr.Length - 1);
 }
 
+
 int[] QuickSortArray(int[] arr, int leftIndex, int rightIndex) {
     var i = leftIndex;
     var j = rightIndex;
@@ -195,11 +196,11 @@ int[] QuickSortArray(int[] arr, int leftIndex, int rightIndex) {
 }
 
 
-TimeSpan TimeIt(Action func) {
+double TimeIt(Action func) {
     var stopwatch = Stopwatch.StartNew();
     func();
     stopwatch.Stop();
-    return stopwatch.Elapsed;
+    return stopwatch.ElapsedTicks / 1000000000.0;
 }
 
 
