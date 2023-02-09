@@ -32,6 +32,9 @@ Console.WriteLine("Merge sort time: {0}", time);
 time = TimeIt(() => HeapSort(array.ToArray()));
 Console.WriteLine("Heap sort time: {0}", time);
 
+var proc = Process.GetCurrentProcess();
+Console.WriteLine("Max memory usage: {0:0.0}", proc.PrivateMemorySize64 / (1024.0*1024));
+
 
 int[] BubbleSort(int[] arr) {
     var N = arr.Length;
